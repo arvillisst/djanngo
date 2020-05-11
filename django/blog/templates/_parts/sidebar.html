@@ -1,0 +1,103 @@
+{% load static %}
+{% load thumbnail %}
+<aside class="sidebar sticky-top">
+    <div class="sidebar-inner">
+
+        <!-- Самые обсуждаемые -->
+        <div class="sidebar-widget recent-properties">
+
+            <div class="sidebar-title">
+                <h4>Самые обсуждаемые</h4>
+            </div>
+            {% for post in most_commenting_posts %}
+                {% if post.comments.count > 1 %}
+                    <!-- Post -->
+                    <article class="post">
+                        <div class="post-thumb">
+                            <a href="{{ post.get_absolute_url }}">
+                                {% thumbnail post.image "90x80" crop="center" as im %}
+									<img src="{{ im.url  }}" width="{{ im.width }}" height="{{ im.height }}">
+								{% endthumbnail %}
+                                <span class="status"></span>
+                            </a>
+                        </div>
+                        
+                        <h3><a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords_html:8 }} </a></h3>
+                        {% comment %} <span class="location">{{ post.category.name }}</span> {% endcomment %}
+                        <div class="price"><i class="icon far fa-comment"></i> {{ post.comments.count }}</div>
+                        
+                        {% comment %} <div class="text">{{ post.content|truncatewords_html:5 }}</div> {% endcomment %}
+                    </article>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Популярные Widget -->
+        <div class="sidebar-widget recent-properties">
+
+            <div class="sidebar-title">
+                <h4>Популярные</h4>
+            </div>
+
+            <!-- Post -->
+            {% for post in most_viewed_posts %}
+                <article class="post">
+                    <div class="post-thumb">
+                        <a href="{{ post.get_absolute_url }}">
+                            {% thumbnail post.image "90x80" crop="center" as im %}
+                                <img src="{{ im.url  }}" width="{{ im.width }}" height="{{ im.height }}">
+                            {% endthumbnail %}
+                            <span class="status"><li><span class="icon fa fa-eye"></span> {{ post.hit_count.hits }}</li></span>
+                        </a>
+                    </div>
+                    {% comment %} <span class="location">Lundon, UK</span> {% endcomment %}
+                    <h3><a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords_html:12 }}</a></h3>
+                    
+                </article>
+            {% endfor %}
+        </div>
+
+        <!--Category Widget-->
+        <div class="sidebar-widget categories-widget">
+            <div class="sidebar-title">
+                <h4>Категории</h4>
+            </div>
+            <ul class="cat-list">
+            {% for category in category_from_mixin %}
+                <li class="clearfix"><a href="{{ category.get_absolute_url }}">{{ category.name }} <span>({{ category.post_set.count }})</span></a></li>
+            {% endfor %}
+
+            </ul>
+        </div>
+        <!--End Category Widget-->
+        <!-- Tags Widget -->
+        <div class="sidebar-widget popular-tags">
+            <!-- Sidebar Title -->
+            <div class="sidebar-title">
+                <h4>Теги</h4>
+            </div>
+            <div class="widget-content">
+                {% for tag in all_tags %}
+                    <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+                {% endfor %}
+                
+            </div>
+        </div>
+
+        <!-- Social Widget -->
+        <div class="sidebar-widget sidebar-social-widget">
+            <div class="sidebar-title">
+                <h4>Follow Us</h4>
+            </div>
+            <ul class="social-icon-two">
+                <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                <li class="twitter"><a href="#"><span class="fab fa-twitter"></span></a></li>
+                <li class="g_plus"><a href="#"><span class="fab fa-google"></span></a></li>
+                <li class="instagram"><a href="#"><span class="fab fa-instagram"></span></a></li>
+                
+            </ul>
+        </div>
+        <!-- End Social Widget -->
+
+    </div>
+</aside>

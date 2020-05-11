@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+
+<div class="page-wrapper">
+    {% include "_parts/header.html" %}
+	
+	<!-- Sidebar Page Container -->
+    <div class="sidebar-page-container">
+    	<div class="auto-container">
+        	<div class="sticky-container row clearfix">
+				
+				<!--Content Side-->
+                <div class="content-side col-lg-8 col-md-12 col-sm-12">
+					<div class="blog-detail">
+						<div class="inner-box">
+							<div class="image">
+								<div class="date-box">{{ post.publish|naturalday }}</div>
+								<img src="{{ post.image.url }}" alt="" />
+							</div>
+							<div class="lower-content">
+								<div class="upper-box">
+									<h3 id="post-id" data-id="{{ post.id }}">{{ post.title }}</h3>
+									<ul class="post-meta">
+										<li><span class="icon fa fa-user"></span> Admin</li>
+										<li><span class="icon fa fa-eye"></span> {{ post.hit_count.hits }}</li>
+										<li><span class="icon fas fa-comment-dots"></span> {{ post.comments.count }}</li>
+									</ul>
+									<div class="separator"></div>
+								</div>
+								<div class="lower-box">
+									<div class="text">
+										<p>{{ post.content|safe }}</p>
+										
+									</div>
+								</div>
+								<!--post-share-options-->
+                                <div class="post-share-options clearfix">
+                                    <div class="pull-left tags">
+                                    	{% for tag in post.tags.all %}
+                                    		<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+                                    	{% endfor %}
+                                    	 
+                                    </div>
+                                    <div class="pull-right social-icons clearfix">
+                                        {% comment %} <div class="share">Поделиться :</div> {% endcomment %}
+                                        {% comment %} <a href="#" class="facebook"><span class="fab fa-facebook-f"></span></a>
+                                        <a href="#" class="twitter"><span class="fab fa-twitter"></span></a> {% endcomment %}
+										{% comment %} <a href="#" class="google-plus"><span class="fab fa-instagram"></span></a> {% endcomment %}
+
+										<a href="#" class="google-plus" id="like">
+											<span id="liked">{{ post.likes }} <i class="far fa-heart heart-like" aria-hidden="true"></i></span>
+										</a>
+										<a href="#" class="google-plus" id="dislike">
+											<span id="disliked">{{ post.dislikes }} <i class="far fa-heart heart-dislike" aria-hidden="true"></i></span>
+										</a>
+										
+                                    </div>
+                                </div>
+								
+							</div>
+						</div>
+						<!--Comments Area-->
+						{% include "_parts/comments.html" %}
+						{% comment %} {% include '_parts/list_comments.html' %} {% endcomment %}
+					</div>
+				</div>
+				
+				<!--Sidebar Side-->
+                <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                	{% include "_parts/sidebar.html" %}
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- End Sidebar Page Container -->
+    
+	<!--Main Footer-->
+    {% include "_parts/footer.html" %}
+	
+</div>  
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+
+<!--Search Popup-->
+{% include '_parts/search.html' %}
+
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="{% static 'js/like-dislike.js' %}"></script>	
+{% endblock content %}

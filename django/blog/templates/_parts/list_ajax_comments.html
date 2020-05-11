@@ -1,0 +1,66 @@
+{% load static %}
+
+<div class="comments-area">
+    {% if post.comments.count > 0 %}
+    <div class="group-title">
+        <a id="comments-area-id" href="#"><h2>Комментарии <small>({{ post.comments.count }}) скрыть / показать</small></h2></a>
+    </div>
+    
+    {% for comment in comments %}
+        <div class="comments-and-reply">
+            <div class="comment-box basic-comment-box">
+                <div class="comment basic-comment">
+                    <div class="author-thumb"><img src="{% static 'images/user.png' %}" alt=""></div>
+                    
+                    <div class="comment-info clearfix"><strong>{{ comment.name }}</strong>
+                    
+                    <div class="comment-time">{{ comment.created }}</div></div>
+                    <div class="text">{{ comment.body|linebreaks }}</div>
+                    <hr>
+                     {% if comment.replies.count > 0 %}
+                        <a class="theme-btn reply-btn-author" data-id="{{ comment.id }}" href="#" >показать ответы ({{ comment.replies.count }})</a>
+                    {% endif %} 
+                    {% comment %} <a class="theme-btn reply-btn-show" href="#" > {% endcomment %}
+                    <a class="for-reply-comment reply-btn-show" href="#baseForm" id="comment-author-id" data-name="{{ comment.name }}" data-id="{{ comment.id }}">
+                    ответить </a>
+                </div>
+                
+            </div>
+            
+                {% for reply in comment.replies.all %}
+                    <div class="comment-box reply-comment" style="display:none">
+                        <div class="comment comment-author-reply">
+                            <div class="author-thumb author-thumb-reply"><img src="{% static 'images/user.png' %}" alt=""></div>
+                            <a class="for-reply-comment" href="#formReplyId" id="comment-author-id" data-name="{{ reply.name }}" data-id="{{ comment.id }}">
+                                <div class="comment-info clearfix"><strong>{{ reply.name }} </strong>
+                            </a><span>⮫ </span>
+                            <strong class="link-reply">
+                                {{ reply.reply_to }}
+                                <div class="link-reply-body" >
+                                    <div class="container">{{ reply.message_reply_to }}</div>
+                                </div>
+                            </strong>
+                            <div class="comment-time">{{ reply.created }}</div></div>
+                            <div class="text">{{ reply.body|linebreaks }}</div>
+                            
+                            <a class="theme-btn reply-btn for-reply-comment" href="#your-name-reply" id="comment-author-id" data-name="{{ reply.name }}" data-id="{{ comment.id }}">ответить</a>
+                            <hr>
+                            
+                            {% comment %} <a class="for-reply-comment theme-btn  reply-btn-author-reply" href="#formReplyId" id="comment-author-id" data-name="{{ reply.name }}" data-id="{{ comment.id }}">
+                            ответить</a> {% endcomment %}
+                        </div>
+                    </div>
+                {% comment %} {% endif %} {% endcomment %}
+                {% endfor %}
+        </div>
+        
+    {% endfor %}
+    {% else %}
+    <div class="group-title">
+        <h3>Пока нет комментариев. Станьте первым</h3>
+    </div>
+    {% endif %}
+</div>
+
+{% comment %} <script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/comments_script.js' %}"></script> {% endcomment %}

@@ -1,0 +1,29 @@
+<div id="search-popup" class="search-popup">
+	<div class="close-search theme-btn"><span class="fas fa-window-close"></span></div>
+	<div class="popup-inner">
+		<div class="overlay-layer"></div>
+    	<div class="search-form">
+        	<form method="get" action="{% url 'search' %}">
+            	<div class="form-group">
+                	<fieldset>
+                        <input type="search" class="form-control" name="query" value="" placeholder="Поиск по статьям..." required >
+                        
+                        <input type="submit" value="поиск" class="theme-btn">
+                    </fieldset>
+                </div>
+            </form>
+            
+            <br>
+            <h3>Также ищут по ключевым словам</h3>
+            <ul class="recent-searches">
+                <li><a href="#">как сделать то</a></li>
+                <li><a href="#">django</a></li>
+                <li><a href="#">Flat</a></li>
+                <li><a href="#">python requests</a></li>
+                <li><a href="#">Villa</a></li>
+            </ul>
+        
+        </div>
+        
+    </div>
+</div>

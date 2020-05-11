@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load humanize %}
+
+{% block title %}DJANGO-Blog{% endblock title %}
+
+
+{% block content %}
+
+<div class="page-wrapper">
+    {% include "_parts/header.html" %}
+
+	<!-- Offers Section -->
+
+	<!-- End Offers Section -->
+	
+	<!-- Sidebar Page Container -->
+	<!-- Sidebar Page Container -->
+    <div class="sidebar-page-container">
+    	<div class="auto-container">
+        	<div class="sticky-container row clearfix">
+
+				<!--Content Side-->
+                <div class="content-side col-lg-8 col-md-12 col-sm-12">
+
+					<div class="blog-list">
+
+						{% for post in results %}
+							<!-- News Style Three -->
+						<div class="news-block-three">
+							<div class="inner-box">
+								<div class="row clearfix">
+
+									<!-- Image Column 303x182 568x340  -->
+									<div class="image-column col-lg-5 col-md-5 col-sm-12">
+										<div class="inner-column">
+											<div class="image">
+												{% comment %} <div class="date-box">13 <br> Feb</div> {% endcomment %}
+												<div class="date-box">{{ post.publish|naturalday }}</div>
+												{% comment %} <a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" alt="" /></a> {% endcomment %}
+												{% thumbnail post.image "568x340" crop="center" as im %}
+													<a href="{{ post.get_absolute_url }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"></a>
+													
+												{% endthumbnail %}
+											</div>
+										</div>
+									</div>
+
+									<!-- Content Column -->
+									<div class="content-column col-lg-7 col-md-7 col-sm-12">
+										<div class="inner-column">
+											<div class="upper-box">
+												<h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+												<ul class="post-meta">
+													<li><a><span class="icon fa fa-user"></span> Admin</a></li>
+													<li><a><span class="icon fa fa-eye"></span> {{ post.hit_count.hits }}</a></li>
+													{% comment %} <li><span class="icon far fa-heart"></span> {{ post.likes }}</li>
+													<li><span class="icon far fa-heart"></span> {{ post.dislikes }}</li> {% endcomment %}
+													<li><a><span class="icon fas fa-comment-dots"></span> {{ post.comments.count }}</a></li>
+												</ul>
+												<div class="separator"></div>
+											</div>
+											<div class="lower-box">
+												<div class="text">{{ post.content|safe|truncatewords_html:18}}</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+
+						<!-- Styled Pagination -->
+						{% if results.has_other_pages %}
+						<div class="styled-pagination text-center">
+							<ul class="inner-container clearfix">
+							{% if results.has_previous %}
+								<li class="prev"><a href="?page={{ results.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}" class="active"><i class="flaticon-left-arrow"></i>  Пред </a></li>
+							{% endif %}
+							{% for i in results.paginator.page_range %}
+								{% if results.number == i %}
+									<li class="active"><a href="#">{{ i }}</a></li>
+								{% elif i > results.number|add:'-6' and i < results.number|add:'6' %}
+                                    <li><a href="?page={{ i }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">{{ i }}</a></li>
+								{% comment %} {% else %}
+									<li><a href="?page={{ i }}">{{ i }}</a></li> {% endcomment %}
+								{% endif %}
+							{% endfor %}
+							{% if results.has_next %}
+								<li class="next"><a href="?page={{ results.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}" class="active">След <i class="flaticon-right-arrow-1"></i></a></li>
+							{% endif %}
+							</ul>
+						</div>
+						{% endif %}
+						<!-- End Styled Pagination -->
+					</div>
+				</div>
+
+				<!--Sidebar Side-->
+                <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                	{% include "_parts/sidebar.html" %}
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- End Sidebar Page Container -->
+    
+	
+	<!--Main Footer-->
+    {% include "_parts/footer.html" %}
+	
+</div>  
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+
+<!--Search Popup-->
+{% include '_parts/search.html' %}
+	
+{% endblock content %}
