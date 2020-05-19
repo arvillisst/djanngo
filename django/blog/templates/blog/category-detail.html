@@ -53,14 +53,14 @@
 											<div class="upper-box">
 												<h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
 												<ul class="post-meta">
-													<li><a href="blog-detail.html"><span class="icon fa fa-user"></span> Admin</a></li>
-													<li><a href="blog-detail.html"><span class="icon fa fa-eye"></span> {{ post.hit_count.hits }}</a></li>
-													<li><a href="blog-detail.html"><span class="icon fas fa-comment-dots"></span> {{ post.comments.count }}</a></li>
+													{% comment %} <li><a href="blog-detail.html"><span class="icon fa fa-user"></span> Admin</a></li> {% endcomment %}
+													<li><a><span class="icon fa fa-eye"></span> {{ post.hit_count.hits }}</a></li>
+													<li><a><span class="icon fas fa-comment-dots"></span> {{ post.comments.count }}</a></li>
 												</ul>
 												<div class="separator"></div>
 											</div>
 											<div class="lower-box">
-												<div class="text">{{ post.content|safe|truncatewords_html:10}}<a class="read-more" href="blog-detail.html">Читать...</a></div>
+												<div class="text">{{ post.content|safe|truncatewords_html:19}}</div>
 											</div>
 										</div>
 									</div>

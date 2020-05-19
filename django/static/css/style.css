@@ -46,6 +46,8 @@
 /*@import url('https://fonts.googleapis.com/css?family=Archivo:400,500,600,700|Raleway:300,400,500,600,700,800,900&amp;display=swap');*/
 @import url('https://fonts.googleapis.com/css?family=Inter:400,500,600,700|Nunito:300,400,500,600,700,800,900&amp;display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Manrope:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@500&display=swap');
 /* @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap'); */
 /*@import url(http://allfont.ru/allfont.css?fonts=raleway-regular);*/
 /*@import url(http://allfont.ru/allfont.css?fonts=futura-normal);
@@ -729,11 +731,12 @@ ul,li{
 	width:100%; 
 	height:100%; 
 	z-index:999999; 
-	background-color:#ffffff; 
+	background-color:#fcfcfc; 
 	background-position:center center; 
 	background-repeat:no-repeat;
 	background-size:100px;
-	background-image:url(../images/icons/preloader.svg);
+	/* background-image:url(../images/icons/preloader.svg); */
+	background-image:url(../images/icons/loader-dark.svg);
 }
 
 img{
@@ -821,15 +824,15 @@ img{
 
 .scroll-to-top{
 	position:fixed;
-	bottom:20px;
-	right:20px;
+	bottom:80px;
+	right:11px;
 	width:60px;
 	height:60px;
 	color:#ffffff;
 	font-size:24px;
 	line-height:60px;
 	text-align:center;
-	z-index:100;
+	z-index: 100;
 	cursor:pointer;
 	background:#1b1a1c;
 	display:none;
@@ -1000,7 +1003,7 @@ img{
 .main-header .logo-outer .logo img{
 	position:relative;
 	display:inline-block;
-	max-width:100%;
+	max-width: 40%;
 }
 
 .main-header .header-upper .nav-outer{
@@ -4147,7 +4150,7 @@ img{
 	color:#25a9e0;
 }
 
-.news-block .inner-box .lower-content .text blockquote{
+/* .news-block .inner-box .lower-content .text blockquote{
 	position:relative;
 	color:#777777;
 	font-size:14px;
@@ -4165,7 +4168,7 @@ img{
 	font-style:normal;
 	margin-top:8px;
 	text-transform:uppercase;
-}
+} */
 
 /*** 
 
@@ -5639,7 +5642,8 @@ img{
 
 .footer-style-two .widgets-section{
 	position:relative;
-	padding:105px 0px 60px;
+	/* padding:105px 0px 60px; */
+	padding: 55px 0px 10px
 }
 
 .footer-style-two .footer-widget .info-list{
@@ -9480,18 +9484,19 @@ img{
 	line-height:1.6em;
 	margin-bottom:15px;
 	color:#222222;
-	font-size:17px;
-	font-family: 'Inter', sans-serif;
+	font-size:16px;
+	/* font-family: 'Inter', sans-serif; */
+	font-family: 'Roboto', sans-serif;
 }
 
-.blog-detail .inner-box .lower-content .text blockquote{
+ /* .blog-detail .inner-box .lower-content .text blockquote{
 	position:relative;
 	padding:0px;
 	border:0px;
 	padding-left:70px;
 	margin-top:40px;
 	margin-bottom:20px;
-}
+} 
 
 .blog-detail .inner-box .lower-content .text blockquote .quote-icon{
 	position:absolute;
@@ -9501,7 +9506,7 @@ img{
 	color:#25a9e0;
 	font-size:44px;
 	line-height:1em;
-}
+} 
 
 .blog-detail .inner-box .lower-content .text blockquote .blockquote-text{
 	position:relative;
@@ -9511,7 +9516,28 @@ img{
 	line-height:1.5em;
 	padding-top:22px;
 	border-top:1px solid #e6e6e6;
-}
+} */
+
+blockquote {
+	background: #f9f9f9;
+	border-left: 10px solid #ccc;
+	margin: 1.5em 10px;
+	padding: 0.5em 10px;
+	quotes: "\201C""\201D""\2018""\2019";
+  }
+  blockquote:before {
+	color: #ccc;
+	content: open-quote;
+	font-size: 4em;
+	line-height: 0.1em;
+	margin-right: 0.25em;
+	vertical-align: -0.4em;
+  }
+  blockquote p {
+	display: inline;
+	font-style: italic;
+	font-size: 11px;
+  }
 
 .blog-detail .project-gallery-box h4{
 	position:relative;
@@ -11976,8 +12002,9 @@ img{
     padding: .4em;
     background: #232323;
     color: #f6f6f6;
-	font-size: 15px;
+	font-size: 13px;
 	border-radius: 5px;
+	font-family: 'Fira Mono', monospace;
 }
 
 .modal-dialog {
@@ -12032,3 +12059,43 @@ img{
     font-size: 16px;
     margin-top: 10px;
 }
+
+ul.examples-job {
+	/* margin-right: 50px; */
+	padding-left: 30%;
+}
+
+.super-admin {
+	border: 2px solid #e7e6e6;
+	background: #e7e6e6;
+	/* background-color: #25a9e0; */
+	/* color: #fcf7f7; */
+	padding: 1px 4px 1px 4px; /* Поля вокруг текста */
+	border-radius: 2px;
+}
+
+code {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d1c1c;
+    word-break: break-word;
+}
+
+tt {
+    font-size: 18px;
+    font-weight: 600;
+    color: #252525;
+    word-break: break-word;
+}
+
+/* .modal-dialog:target {
+	display: block;
+	pointer-events: auto;
+	}
+	
+.modal-dialog:target {
+	z-index: 99999;
+	/* display: none; */
+    pointer-events: none;
+
+	} */

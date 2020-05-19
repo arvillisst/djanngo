@@ -14,4 +14,5 @@ urlpatterns = [
     
     path('scrape/', views.scrape_data, name='scrape'),
     path('new-win/', views.get_win_news, name='neo_win'),
+    path('verge_news/', views.get_verge_news, name='verge_news'),
 ]

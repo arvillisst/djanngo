@@ -11,6 +11,7 @@ from .forms import SearchForm
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.models import User
 
 
 class HomeView(SidebarMixin, ListView):
@@ -23,7 +24,7 @@ class HomeView(SidebarMixin, ListView):
         # pagination
         last_posts = Post.objects.filter(status='draft')[4:]
         page = self.request.GET.get('page', 1)
-        paginator = Paginator(last_posts, 10)
+        paginator = Paginator(last_posts, 8)
         try:
             context['last_posts'] = paginator.page(page)
         except PageNotAnInteger:
@@ -43,7 +44,7 @@ class CategoryDetailView(SidebarMixin, DetailView):
         # pagination
         posts = self.get_object().post_set.all()
         page = self.request.GET.get('page', 1)
-        paginator = Paginator(posts, 10)
+        paginator = Paginator(posts, 8)
         try:
             context['last_posts'] = paginator.page(page)
         except PageNotAnInteger:
@@ -63,6 +64,8 @@ class PostDetailView(SidebarMixin, HitCountDetailView):
         context['post'] = self.get_object()
         context['comments'] = self.get_object().comments.filter(active=True, parent__isnull=True).order_by('-created')
         context['comment_form'] = CommentForm()
+        context['superuser_admin'] = 'trini' #settings.ADMINS[0][0]
+        context['superuser_email'] = 'liwver@gmail.com' #settings.ADMINS[0][1]
         return context
 
     def post(self, request, category, slug):
@@ -91,7 +94,12 @@ class PostDetailView(SidebarMixin, HitCountDetailView):
                         # replay_comment.message_reply_to = message_for_reply_to
                         replay_comment.message_reply_to = ' '.join(message_for_reply_to.split(',')[1:])
                         # print(message_for_reply_to)
-
+                if request.user.is_superuser:
+                    new_comment = comment_form.save(commit=False)
+                    new_comment.post = post
+                    new_comment.save()
+                    return HttpResponseRedirect(post.get_absolute_url())
+                
                 new_comment = comment_form.save(commit=False)
                 new_comment.post = post
                 new_comment.save()
@@ -99,12 +107,9 @@ class PostDetailView(SidebarMixin, HitCountDetailView):
             else:
                 comment_form = CommentForm()
 
-        # return render(request, 'core/blog-detail.html',
-        #             {'post': post,
-        #             'comments': comments,
-        #             'comment_form': comment_form
-        #             })
 
+def page_not_found(request, exception):
+  return render(request, '404.html')
 
 class UserReactionView(View):
     template_name = 'blog/blog-detail.html'
@@ -226,8 +231,7 @@ class ContactView(View):
         theme = request.GET.get('theme_from_ajax')
         message = request.GET.get('message_from_ajax')
         body = f'Пришло письмо от {email}, с темой \n"{theme}",\n с сообщением: \n"{message}"'
-        send_mail(f'{theme}', f'{body}', settings.EMAIL_HOST_USER, ['liwver@gmail.com'], fail_silently=False)
-        # print(f'{theme}', f'{message}', f'{email}')
+        send_mail(f'{theme}', f'{body}', email, ['liwver@gmail.com'], fail_silently=False)
         return JsonResponse({"ok": "ok"})
 
 
@@ -265,9 +269,6 @@ def scrape_data(request):
     try:
         for i in data:
             print(i['title'])
-            # print(i['image'])
-            # print(i['category'])
-            # print(i['tags'])
             print('--------------------------------------')
 
             temp_post = Post()
@@ -278,7 +279,8 @@ def scrape_data(request):
             temp_post.content = i['content']
 
             if not Post.objects.filter(title=i['title']).exists():
-                path_to_media = 'D:/NEW_20/BLOG_12_04_2020/django/media/images'
+                path_to_media = settings.MEDIA_ROOT + '\images'
+                print(path_to_media)
                 wget.download(i['image'], path_to_media)
                 temp_post.image = f'images/{i["image"].split("/")[-1]}'
                 temp_post.save()
@@ -295,7 +297,6 @@ def scrape_data(request):
 
     finally:
         return redirect('home')
-    # return redirect('home')
 
 
 def get_win_news(request):
@@ -325,6 +326,46 @@ def get_win_news(request):
             if not Post.objects.filter(title=i['title']).exists():
                 path_to_media = 'D:/NEW_20/BLOG_12_04_2020/django/media/images'
                 img_downloaded = wget.download(i['image'], path_to_media)
+                temp_post.image = f'images/{i["image"].split("/")[-1]}'
+                temp_post.save()
+
+                for i in i['tags']:
+                    temp_tag, _ = Tag.objects.get_or_create(name=i)
+                    temp_post.tags.add(temp_tag)
+
+                temp_post.save()
+
+    except Exception as err:
+        print(err)
+        pass
+
+    finally:
+        return redirect('home')
+
+
+
+def get_verge_news(request):
+    from .verge_news import VergeParser
+    import wget
+    new_win = VergeParser()
+    # new_win.get_links()
+    data = new_win.get_detail_info()
+    try:
+        for i in data:
+            print(i['title'])
+            print('--------------------------------------')
+
+            temp_post = Post()
+
+            temp_category, _ = Category.objects.get_or_create(name=i['category'])
+            temp_post.category = temp_category
+            temp_post.title = i['title']
+            temp_post.content = i['content']
+
+            if not Post.objects.filter(title=i['title']).exists():
+                path_to_media = settings.MEDIA_ROOT + '\images'
+                print(path_to_media)
+                wget.download(i['image'], path_to_media)
                 temp_post.image = f'images/{i["image"].split("/")[-1]}'
                 temp_post.save()
 

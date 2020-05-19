@@ -5,7 +5,7 @@
 
         <!-- Самые обсуждаемые -->
         <div class="sidebar-widget recent-properties">
-
+            
             <div class="sidebar-title">
                 <h4>Самые обсуждаемые</h4>
             </div>
@@ -21,12 +21,8 @@
                                 <span class="status"></span>
                             </a>
                         </div>
-                        
                         <h3><a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords_html:8 }} </a></h3>
-                        {% comment %} <span class="location">{{ post.category.name }}</span> {% endcomment %}
                         <div class="price"><i class="icon far fa-comment"></i> {{ post.comments.count }}</div>
-                        
-                        {% comment %} <div class="text">{{ post.content|truncatewords_html:5 }}</div> {% endcomment %}
                     </article>
                 {% endif %}
             {% endfor %}
@@ -83,21 +79,5 @@
                 
             </div>
         </div>
-
-        <!-- Social Widget -->
-        <div class="sidebar-widget sidebar-social-widget">
-            <div class="sidebar-title">
-                <h4>Follow Us</h4>
-            </div>
-            <ul class="social-icon-two">
-                <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                <li class="twitter"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                <li class="g_plus"><a href="#"><span class="fab fa-google"></span></a></li>
-                <li class="instagram"><a href="#"><span class="fab fa-instagram"></span></a></li>
-                
-            </ul>
-        </div>
-        <!-- End Social Widget -->
-
     </div>
 </aside>

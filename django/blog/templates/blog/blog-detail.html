@@ -26,7 +26,7 @@
 								<div class="upper-box">
 									<h3 id="post-id" data-id="{{ post.id }}">{{ post.title }}</h3>
 									<ul class="post-meta">
-										<li><span class="icon fa fa-user"></span> Admin</li>
+										{% comment %} <li><span class="icon fa fa-user"></span> Admin</li> {% endcomment %}
 										<li><span class="icon fa fa-eye"></span> {{ post.hit_count.hits }}</li>
 										<li><span class="icon fas fa-comment-dots"></span> {{ post.comments.count }}</li>
 									</ul>
@@ -47,11 +47,6 @@
                                     	 
                                     </div>
                                     <div class="pull-right social-icons clearfix">
-                                        {% comment %} <div class="share">Поделиться :</div> {% endcomment %}
-                                        {% comment %} <a href="#" class="facebook"><span class="fab fa-facebook-f"></span></a>
-                                        <a href="#" class="twitter"><span class="fab fa-twitter"></span></a> {% endcomment %}
-										{% comment %} <a href="#" class="google-plus"><span class="fab fa-instagram"></span></a> {% endcomment %}
-
 										<a href="#" class="google-plus" id="like">
 											<span id="liked">{{ post.likes }} <i class="far fa-heart heart-like" aria-hidden="true"></i></span>
 										</a>

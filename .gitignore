@@ -33,6 +33,8 @@ __pycache__/
 
 media/*
 !*media
+.media/
+media
 
 log/debug.log
 

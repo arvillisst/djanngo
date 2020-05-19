@@ -1,7 +1,7 @@
 from django.contrib import admin
 from . import models
 from django.utils.html import mark_safe
-
+from django_summernote.admin import SummernoteModelAdmin
 
 @admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
@@ -9,6 +9,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created', 'publish', 'category')
     list_display_links = ('title',)
     list_per_page = 10
+    # summernote_fields = ('content',)
     # search_fields = ('title', 'content')
     date_hierarchy = 'publish'
     ordering = ('status', '-publish')

@@ -160,9 +160,9 @@ function ShowButton() {
     if (document.querySelector('.show-more') && blockComment.length > 4) {
         document.querySelector('.show-more').style.display = ''
     } 
-    // else {
-    //     document.querySelector('.show-more').style.display = 'none'
-    // }
+    else {
+        document.querySelector('.show-more').style.display = 'none'
+    }
     
 }
 

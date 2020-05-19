@@ -10,7 +10,7 @@
                 <div class="auto-container clearfix">
                     <!--Info-->
                     <div class="logo-outer">
-                        <div class="logo"><a href="/"><img src="{% static 'images/logo.png' %}" alt="" title=""></a></div>
+                        <div class="logo"><a href="/"><img src="{% static 'images/logo1 (1).png' %}" alt="" title=""></a></div>
                     </div>
 
                     <!--Nav Box-->
@@ -26,108 +26,16 @@
 
                             <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li class="dropdown"><a href="/"><span data-hover="Главная">Главная</span></a>
-                                        <ul>
-                                            <li><a href="index-2.html">Home page 01</a></li>
-                                            
-                                            <li class="dropdown"><a href="#">Header Styles</a>
-                                                <ul>
-                                                    <li><a href="index-2.html">Header Style One</a></li>
-                                                    
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-									<li class="dropdown"><a href="#"><span data-hover="About us">About us</span></a>
-                                        <ul>
-                                            <li><a href="about.html">About Us</a></li>
-											<li><a href="faq.html">Faq</a></li>
-											<li><a href="gallery.html">Gallery</a></li>
-											<li><a href="comming-soon.html">Comming Soon</a></li>
-											<li class="dropdown"><a href="#">Take Tours</a>
-                                                <ul>
-                                                    <li><a href="take-tour.html">Take Tour</a></li>
-													<li><a href="video-tour.html">Video Tour</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-									<li class="dropdown has-mega-menu"><a href="#"><span data-hover="Pages">Pages</span></a>
-										<div class="mega-menu">
-											<div class="mega-menu-bar row clearfix">
-												<div class="column col-md-3 col-xs-12">
-													<h3>About Us</h3>
-													<ul>
-														<li><a href="about.html">About Us</a></li>
-														<li><a href="faq.html">Faq</a></li>
-														<li><a href="take-tour.html">Take Tour</a></li>
-														<li><a href="video-tour.html">Video Tour</a></li>
-														<li><a href="gallery.html">Gallery</a></li>
-														<li><a href="comming-soon.html">Comming Soon</a></li>
-													</ul>
-												</div>
-												<div class="column col-md-3 col-xs-12">
-													<h3>Properties</h3>
-													<ul>
-														<li><a href="properties.html">Properties</a></li>
-														<li><a href="dashboard.html">Dashboard</a></li>
-														<li><a href="submit-property.html">Submit Property</a></li>
-														<li><a href="properties-list-view.html">Properties List View</a></li>
-														<li><a href="properties-grid-view.html">Properties Grid View</a></li>
-														<li><a href="properties-classic-view.html">Properties Classic View</a></li>
-														<li><a href="properties-detail.html">Properties Detail</a></li>
-													</ul>
-												</div>
-												<div class="column col-md-3 col-xs-12">
-													<h3>Blog</h3>
-													<ul>
-														<li><a href="blog.html">Our Blog</a></li>
-														<li><a href="blog-list.html">Blog List</a></li>
-														<li><a href="blog-classic.html">Blog Classic</a></li>
-														<li><a href="blog-detail.html">Blog Detail</a></li>
-														<li><a href="not-found.html">Not Found</a></li>
-													</ul>
-												</div>
-												<div class="column col-md-3 col-xs-12">
-													<h3>Shops</h3>
-													<ul>
-														<li><a href="shop.html">Shop</a></li>
-														<li><a href="shop-single.html">Shop Details</a></li>
-														<li><a href="shoping-cart.html">Cart Page</a></li>
-														<li><a href="checkout.html">Checkout Page</a></li>
-														<li><a href="login.html">Login</a></li>
-														<li><a href="signup.html">Sign up</a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</li>
+                                    <li><a href="/"><span data-hover="Главная">Главная</span></a></li>
+                                    <li><a href="/"><span data-hover="Услуги">Услуги</span></a></li>
+									
 
-                                    <li class="current dropdown"><a href="#"><span data-hover="Категории">Категории</span></a>
-                                        <ul>
-                                            <li><a href="blog.html">Our Blog</a></li>
-											<li><a href="blog-list.html">Blog List</a></li>
-											<li><a href="blog-classic.html">Blog Classic</a></li>
-                                            <li><a href="blog-detail.html">Blog Detail</a></li>
-											<li><a href="not-found.html">Not Found</a></li>
-                                        </ul>
-                                    </li>
-									<li class="dropdown"><a href="#"><span data-hover="Туториалы">Туториалы</span></a>
-                                        <ul>
-                                            <li><a href="shop.html">Shop</a></li>
-                                            <li><a href="shop-single.html">Shop Details</a></li>
-                                            <li><a href="shoping-cart.html">Cart Page</a></li>
-                                            <li><a href="checkout.html">Checkout Page</a></li>
-											<li><a href="login.html">Login</a></li>
-											<li><a href="signup.html">Sign up</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li><a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span data-hover="Contact">Contact</span></a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><span data-hover="Написать">Написать</span></a></li>
                                     {% if user.is_superuser %}
                                         <li><a href="{% url 'scrape' %}"><span data-hover="iguide">iguide</span></a></li>
+                                        <li><a href="{% url 'verge_news' %}"><span data-hover="verge">verge</span></a></li>
                                         {% comment %} <li><a href="{% url 'neo_win' %}"><span data-hover="neo win">neo win</span></a></li> {% endcomment %}
-                                        <li><a href="http://127.0.0.1:8000/admin/blog/"><span data-hover="Админ">Админ</span></a></li>
+                                        <li><a href="/admin/blog/"><span data-hover="Админ">Админ</span></a></li>
                                     {% endif %}
                                     
                                     
@@ -160,7 +68,7 @@
 
             <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
             <nav class="menu-box">
-            	<div class="nav-logo"><a href="/"><img src="{% static 'images/nav-logo.png' %}" alt="" title=""></a></div>
+            	<div class="nav-logo"><a href="/"><img src="{% static 'images/logo1 (1).png' %}" alt="" title=""></a></div>
 
                 <ul class="navigation clearfix"><!--Keep This Empty / Menu will come through Javascript--></ul>
             </nav>

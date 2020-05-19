@@ -14,14 +14,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sitemaps',
     'ckeditor',
     'ckeditor_uploader',
     'hitcount',
     'sorl.thumbnail',
+    'snowpenguin.django.recaptcha3',
 
     'blog.apps.BlogConfig',
     'comments.apps.CommentsConfig'
 ]
+
+INSTALLED_APPS += ('django_summernote', )
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+ADMINS = [('trini', 'liwver@gmail.com'), ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,8 +95,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-# HITCOUNT_KEEP_HIT_ACTIVE = { 'days': 7 }
-HITCOUNT_KEEP_HIT_ACTIVE = { 'minutes': 10 }
+HITCOUNT_KEEP_HIT_ACTIVE = { 'days': 7 }
+# HITCOUNT_KEEP_HIT_ACTIVE = { 'minutes': 10 }
 
 
 
@@ -105,8 +113,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_CONFIGS = {
     'default': {
-        'skin': 'moono',
-        # 'skin': 'office2013',
+        'skin': 'flat',
+        # 'skin': 'moono',
+        # 'skin': 'n1theme',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
@@ -125,20 +134,22 @@ CKEDITOR_CONFIGS = {
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
                        'Language']},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'youtube', 'items': ['Youtube',]},
             {'name': 'insert',
              'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
-            '/',
+            # '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
-            {'name': 'about', 'items': ['About']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks', 'Preview']},
+            
             '/',  # put this to force next toolbar on new line
-            {'name': 'yourcustomtools', 'items': [
-                # put the name of your editor.ui.addButton here
-                'Preview',
-                'Maximize',
+            # {'name': 'yourcustomtools', 'items': [
+            #     # put the name of your editor.ui.addButton here
+            #     'Preview',
+            #     'Maximize',
 
-            ]},
+            # ]},
+           
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
@@ -172,20 +183,26 @@ CKEDITOR_CONFIGS = {
             'autoembed',
             'embedsemantic',
             'autogrow',
-            # 'devtools',
+            'devtools',
             'codesnippet',
             'widget',
             'lineutils',
             'clipboard',
             'dialog',
             'dialogui',
-            'elementspath'
+            'elementspath',
+            'youtube'
+
         ]),
+        
     }
 }
 
 
+
+
 try:
     from .local_settings import *
+    
 except ImportError:
-    from prod_settings import *
+    from .prod_settings import *

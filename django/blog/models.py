@@ -42,6 +42,7 @@ class Post(models.Model, HitCountMixin):
     slug = models.SlugField(max_length=225, blank=True)
     image = models.ImageField(upload_to='images/', blank=True, verbose_name='Фото')
     content = RichTextUploadingField(blank=True, default='')
+    # content = models.TextField(blank=True, default='')
     likes = models.PositiveIntegerField(default=0, verbose_name='Лайки')
     dislikes = models.PositiveIntegerField(default=0, verbose_name='Диз-лайки')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
@@ -61,6 +62,10 @@ class Post(models.Model, HitCountMixin):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
+
+    def delete(self):
+        self.image.delete()
+        super(Post, self).delete()
 
     def __str__(self):
         return 'Статья {0} из категории {1}'.format(self.title, self.category.name)
